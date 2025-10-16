@@ -1,11 +1,14 @@
 import { AxiosError } from "axios";
 import { ApiClientInstance } from "../lib/api-client";
 import {
+  EstimatePayoutPayload,
+  EstimatePayoutResponse,
   PayoutPayload,
   PayoutResponse,
+  PayoutStatusResponse,
   WalletsResponse,
 } from "../dts/payout.dts";
-import { testWallets } from "../lib/test-wallets";
+import { testEstimatePayoutResponse, testWallets } from "../lib/dummy-response";
 
 class Payout {
   private apiClient: ApiClientInstance;
@@ -59,6 +62,49 @@ class Payout {
       throw error;
     }
   }
-}
 
+  async esitimatePayoutFee(
+    payload: EstimatePayoutPayload
+  ): Promise<EstimatePayoutResponse> {
+    try {
+      const endpoints = {
+        test: "/wallet/estimate-payout",
+        live: "/wallet/estimate-payout",
+      };
+      if (this.env === "test") {
+        return testEstimatePayoutResponse;
+      }
+      const response = await this.apiClient.post<EstimatePayoutResponse>(
+        endpoints[this.env],
+        payload
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Error estimating payout fee:",
+        (error as AxiosError).response?.data
+      );
+      throw error;
+    }
+  }
+
+  async getPayoutStatus(reference_id: string): Promise<PayoutStatusResponse> {
+    try {
+      const endpoints = {
+        test: `/test/payout/${reference_id}/status`,
+        live: `/live/payout/${reference_id}/status`,
+      };
+      const response = await this.apiClient.get<any>(
+        endpoints[this.env]
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Error fetching wallet transaction status:",
+        (error as AxiosError) //.response?.data
+      );
+      throw error;
+    }   
+  }
+}
 export default Payout;

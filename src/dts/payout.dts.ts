@@ -51,3 +51,28 @@ export interface WalletInfo {
 export interface WalletsResponse {
   data: WalletInfo[];
 }
+
+
+export interface EstimatePayoutPayload{
+    wallet_id: string;
+    amount: number;
+    card_number: string;
+}
+
+export interface EstimatePayout{
+    amount_requried: number;
+    wallet_balance: number;
+    total_fee: number;
+}
+
+export interface EstimatePayoutResponse{
+    data: EstimatePayout;
+}
+
+
+
+export interface PayoutStatusResponse {
+  status: "SUCCESS" | "PENDING" | "FAILED";
+  message: string;
+  data: TransactionData;
+}

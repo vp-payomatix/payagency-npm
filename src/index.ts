@@ -8,7 +8,7 @@ import type { PaymentPayload } from "./dts/s2s.dts";
 import HostedPayment from "./apis/hosted";
 import { HostedPaymentRequest } from "./dts/hosted.dts";
 import ApmPayment from "./apis/apm";
-import { PayoutPayload } from "./dts/payout.dts";
+import { EstimatePayoutPayload, PayoutPayload } from "./dts/payout.dts";
 import Payout from "./apis/payout";
 
 class PayAgencyApi {
@@ -46,7 +46,18 @@ class PayAgencyApi {
     const instance = new Payout(this.apiClient, this.env);
     return instance.getWallets();
   }
+
+  async payoutFee(payload: EstimatePayoutPayload) {
+    const instance = new Payout(this.apiClient, this.env);
+    return await instance.esitimatePayoutFee(payload);
+  }
+
+  async payoutStatus(reference_id: string) {
+    const instance = new Payout(this.apiClient, this.env);
+    return instance.getPayoutStatus(reference_id);
+  }
 }
+
 export default PayAgencyApi;
 
 export type { ApiClientOptions, ApiClientInstance };

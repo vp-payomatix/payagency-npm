@@ -48,4 +48,24 @@ describe("PayAgencyApi Payout Integration", () => {
     expect(response).toHaveProperty("data");
     // expect(response.status).toBe("success");
   });
+
+  it("should estimate payout fee", async () => {
+    const payload = {
+      wallet_id: "WAL7825818519632620",
+      amount: 200,
+      card_number: "4111111111111111",
+    };
+
+    const response = await api.payoutFee(payload);
+    console.log("Estimate Payout Fee Response:", response);
+
+    expect(response).toHaveProperty("data");
+    // expect(response.status).toBe("success");
+  });
+  it("should get payout status", async () => {
+    const response = await api.payoutStatus("PA1877208010353680");
+    console.log("Payout Status Response:", response);
+
+    expect(response).toHaveProperty("data");
+  });
 });

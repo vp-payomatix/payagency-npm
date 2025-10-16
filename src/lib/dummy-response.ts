@@ -14,3 +14,11 @@ export const testWallets = [
     status: "Inactive",
   },
 ];
+
+export const testEstimatePayoutResponse = {
+  data: {
+    amount_requried: 211.5,
+    wallet_balance: 1000,
+    total_fee: 11.5,
+  },
+};
