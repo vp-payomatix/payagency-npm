@@ -1,12 +1,11 @@
 import { AxiosError } from "axios";
-import { PaymentResponse } from "../dts/s2s.dts";
 import { ApiClientInstance } from "../lib/api-client";
-import { HostedPaymentRequest } from "../dts/hosted.dts";
 import {
   PayoutPayload,
   PayoutResponse,
   WalletsResponse,
 } from "../dts/payout.dts";
+import { testWallets } from "../lib/test-wallets";
 
 class Payout {
   private apiClient: ApiClientInstance;
@@ -45,22 +44,7 @@ class Payout {
       };
       if (this.env === "test") {
         return {
-          data: [
-            {
-              wallet_id: "WAL1234567890",
-              currency: "USD",
-              amount: 10000,
-              payment_method: "card",
-              status: "Active",
-            },
-            {
-              wallet_id: "WAL9876543210",
-              currency: "EUR",
-              amount: 5000,
-              payment_method: "card",
-              status: "Inactive",
-            },
-          ],
+          data: testWallets,
         };
       }
       const response = await this.apiClient.get<WalletsResponse>(
@@ -70,8 +54,7 @@ class Payout {
     } catch (error: any) {
       console.error(
         "Error fetching wallets:",
-        error as AxiosError
-        // .response?.data
+        (error as AxiosError).response?.data
       );
       throw error;
     }
