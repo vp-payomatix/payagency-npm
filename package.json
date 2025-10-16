@@ -6,7 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
+    "prepare": "npm run build && cp README.md dist/ && cp package.json dist/",
+    "link": "npm link @paneruvipin/payagency",
     "test": "jest"
   },
   "author": "Your Name",
