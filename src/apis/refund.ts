@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import { PaymentResponse } from "../types/s2s";
 import { ApiClientInstance } from "../lib/api-client";
-import { HostedPaymentRequest } from "../types/hosted";
+import { RefundPayload, RefundResponse } from "../types/payout";
 
-class HostedPayment {
+class Refund {
   private apiClient: ApiClientInstance;
   private env: "test" | "live";
 
@@ -12,25 +12,23 @@ class HostedPayment {
     this.env = env;
   }
 
-  async createPayment(data: HostedPaymentRequest): Promise<PaymentResponse> {
+  async create(data: RefundPayload): Promise<RefundResponse> {
     try {
       const endpoints = {
-        test: "/api/v1/test/hosted/card",
-        live: "/api/v1/live/hosted/card",
+        test: `/api/v1/test/refund`,
+        live: `/api/v1/live/refund`,
       };
-      const response = await this.apiClient.post<PaymentResponse>(
+      const response = await this.apiClient.post<RefundResponse>(
         endpoints[this.env],
-        data
+        data,
+        { params: { "Skip-Encryption": "true" } }
       );
       return response.data;
     } catch (error: any) {
-      console.error(
-        "Error creating payment:",
-        (error as AxiosError).response?.data
-      );
+      console.error("Error in Refund:", (error as AxiosError).response?.data);
       throw error;
     }
   }
 }
 
-export default HostedPayment;
+export default Refund;

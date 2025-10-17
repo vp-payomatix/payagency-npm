@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
-import { PaymentResponse } from "../dts/s2s.dts";
+import { PaymentResponse } from "../types/s2s";
 import { ApiClientInstance } from "../lib/api-client";
-import { HostedPaymentRequest } from "../dts/hosted.dts";
+import { HostedPaymentRequest } from "../types/hosted";
 
 class ApmPayment {
   private apiClient: ApiClientInstance;
@@ -15,8 +15,8 @@ class ApmPayment {
   async createPayment(data: HostedPaymentRequest): Promise<PaymentResponse> {
     try {
       const endpoints = {
-        test: "/test/apm",
-        live: "/live/apm",
+        test: "/api/v1/test/apm",
+        live: "/api/v1/live/apm",
       };
       const response = await this.apiClient.post<PaymentResponse>(
         endpoints[this.env],

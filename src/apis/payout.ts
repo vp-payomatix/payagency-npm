@@ -7,7 +7,7 @@ import {
   PayoutResponse,
   PayoutStatusResponse,
   WalletsResponse,
-} from "../dts/payout.dts";
+} from "../types/payout";
 import { testEstimatePayoutResponse, testWallets } from "../lib/dummy-response";
 
 class Payout {
@@ -22,8 +22,8 @@ class Payout {
   async createPayment(data: PayoutPayload): Promise<PayoutResponse> {
     try {
       const endpoints = {
-        test: "/test/payout",
-        live: "/live/payout",
+        test: "/api/v1/test/payout",
+        live: "/api/v1/live/payout",
       };
       const response = await this.apiClient.post<PayoutResponse>(
         endpoints[this.env],
@@ -42,8 +42,8 @@ class Payout {
   async getWallets(): Promise<WalletsResponse> {
     try {
       const endpoints = {
-        test: "/wallet",
-        live: "/wallet",
+        test: "/api/v1/wallet",
+        live: "/api/v1/wallet",
       };
       if (this.env === "test") {
         return {
@@ -68,8 +68,8 @@ class Payout {
   ): Promise<EstimatePayoutResponse> {
     try {
       const endpoints = {
-        test: "/wallet/estimate-payout",
-        live: "/wallet/estimate-payout",
+        test: "/api/v1/wallet/estimate-payout",
+        live: "/api/v1/wallet/estimate-payout",
       };
       if (this.env === "test") {
         return testEstimatePayoutResponse;
@@ -91,20 +91,18 @@ class Payout {
   async getPayoutStatus(reference_id: string): Promise<PayoutStatusResponse> {
     try {
       const endpoints = {
-        test: `/test/payout/${reference_id}/status`,
-        live: `/live/payout/${reference_id}/status`,
+        test: `/api/v1/test/payout/${reference_id}/status`,
+        live: `/api/v1/live/payout/${reference_id}/status`,
       };
-      const response = await this.apiClient.get<any>(
-        endpoints[this.env]
-      );
+      const response = await this.apiClient.get<any>(endpoints[this.env]);
       return response.data;
     } catch (error: any) {
       console.error(
         "Error fetching wallet transaction status:",
-        (error as AxiosError) //.response?.data
+        error as AxiosError //.response?.data
       );
       throw error;
-    }   
+    }
   }
 }
 export default Payout;

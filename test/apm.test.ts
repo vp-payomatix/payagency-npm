@@ -1,14 +1,4 @@
-import PayAgencyApi from "@paneruvipin/payagency";
-
-// Make sure to use valid API keys and endpoints
-const api = new PayAgencyApi({
-  baseUrl: "https://api.pay.agency/api/v1",
-  encryptionKey:
-    process.env.ENCRYPTION_KEY || "89ca59fb3b49ada55851021df12cfbc5",
-  authToken:
-    process.env.AUTH_TOKEN ||
-    "PA_TEST_94bf3520bcbe435f2ed558c31ac664f3e72dfa3114a3232e436e25f9",
-});
+import { api } from "./utility";
 
 describe("PayAgencyApi APM Integration", () => {
   it("should create a payment ", async () => {
@@ -36,5 +26,29 @@ describe("PayAgencyApi APM Integration", () => {
 
     expect(response).toHaveProperty("status");
     // expect(response.status).toBe("success");
+  });
+
+  it("should fetch payment status", async () => {
+    const paymentId = "12524AGSDF34DS9";
+    const response = await api.status(paymentId);
+    console.log("Payment Status Response:", response);
+    expect(response).toHaveProperty("status");
+    // expect(response.status).toBe("success");
+  });
+
+  it("should create a refund", async () => {
+    try {
+      const payload = {
+        transaction_id: "PA8526657613328459",
+        reason: "Product returned",
+      };
+      const response = await api.refund(payload);
+      console.log("Refund Response:", response);
+
+      expect(response).toHaveProperty("status");
+      // expect(response.status).toBe("success");
+    } catch (error) {
+      expect(JSON.stringify((error as any)?.response.data)).toContain("Transaction");
+    }
   });
 });

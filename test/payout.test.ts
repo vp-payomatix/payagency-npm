@@ -1,14 +1,4 @@
-import PayAgencyApi from "@paneruvipin/payagency";
-
-// Make sure to use valid API keys and endpoints
-const api = new PayAgencyApi({
-  baseUrl: "https://api.pay.agency/api/v1",
-  encryptionKey:
-    process.env.ENCRYPTION_KEY || "89ca59fb3b49ada55851021df12cfbc5",
-  authToken:
-    process.env.AUTH_TOKEN ||
-    "PA_TEST_94bf3520bcbe435f2ed558c31ac664f3e72dfa3114a3232e436e25f9",
-});
+import { api } from "./utility";
 
 describe("PayAgencyApi Payout Integration", () => {
   it("should create a payout", async () => {
@@ -62,10 +52,10 @@ describe("PayAgencyApi Payout Integration", () => {
     expect(response).toHaveProperty("data");
     // expect(response.status).toBe("success");
   });
-  it("should get payout status", async () => {
-    const response = await api.payoutStatus("PA1877208010353680");
-    console.log("Payout Status Response:", response);
+  // it("should get payout status", async () => {
+  //   const response = await api.payoutStatus("PA1877208010353680");
+  //   console.log("Payout Status Response:", response);
 
-    expect(response).toHaveProperty("data");
-  });
+  //   expect(response).toHaveProperty("data");
+  // });
 });

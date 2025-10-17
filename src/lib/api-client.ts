@@ -40,11 +40,10 @@ export class ApiClient {
       },
       timeout: 15000,
     });
-
     // Add request interceptor for automatic encryption
     this.axiosInstance.interceptors.request.use(
       (config) => {
-        if (config.data) {
+        if (config.data && config.params?.["Skip-Encryption"] !== "true") {
           // Encrypt the request payload
           config.data = {
             payload: encryptData(

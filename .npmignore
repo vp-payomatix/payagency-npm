@@ -1,0 +1,18 @@
+# Source files
+src/
+test/
+
+# Config files
+tsconfig.json
+jest.config.js
+.env
+.env.example
+
+
+# Development files
+node_modules/
+.git/
+.gitignore
+.eslintrc*
+.prettierrc*
+package-lock.json

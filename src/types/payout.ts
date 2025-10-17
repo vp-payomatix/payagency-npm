@@ -52,27 +52,54 @@ export interface WalletsResponse {
   data: WalletInfo[];
 }
 
-
-export interface EstimatePayoutPayload{
-    wallet_id: string;
-    amount: number;
-    card_number: string;
+export interface EstimatePayoutPayload {
+  wallet_id: string;
+  amount: number;
+  card_number: string;
 }
 
-export interface EstimatePayout{
-    amount_requried: number;
-    wallet_balance: number;
-    total_fee: number;
+export interface EstimatePayout {
+  amount_requried: number;
+  wallet_balance: number;
+  total_fee: number;
 }
 
-export interface EstimatePayoutResponse{
-    data: EstimatePayout;
+export interface EstimatePayoutResponse {
+  data: EstimatePayout;
 }
-
-
 
 export interface PayoutStatusResponse {
   status: "SUCCESS" | "PENDING" | "FAILED";
   message: string;
   data: TransactionData;
+}
+
+export interface PaymentStatusResponse {
+  status: "SUCCESS" | "PENDING" | "FAILED";
+  message: string;
+  data: TransactionData & RefundChargebackInfo;
+}
+
+export interface RefundChargebackInfo {
+  refund: Refund;
+  chargeback: Chargeback;
+}
+
+export interface Refund {
+  status: boolean;
+  refund_date: string | null;
+}
+
+export interface Chargeback {
+  status: boolean;
+  chargeback_date: string | null;
+}
+
+export interface RefundPayload {
+  reason: string;
+  transaction_id: string;
+}
+
+export interface RefundResponse extends PaymentStatusResponse {
+  status: "SUCCESS";
 }

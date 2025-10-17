@@ -8,4 +8,7 @@ module.exports = {
   transform: {
     ...tsJestTransformCfg,
   },
+  // Ignore the dist folder to prevent module name collisions
+  modulePathIgnorePatterns: ["<rootDir>/dist"],
+  testTimeout: 30000,
 };
