@@ -5,6 +5,11 @@ import {
   PaymentLinkResponse,
   PaymentTemplateResponse,
 } from "../types/payment-link";
+import {
+  PaymentLinkCreateInput,
+  PaymentLinkCreateOutput,
+  PaymentTemplateGetOutput,
+} from "../types/librery";
 
 class PaymentLink {
   private apiClient: ApiClientInstance;
@@ -15,7 +20,32 @@ class PaymentLink {
     this.env = env;
   }
 
-  async getTemplates(): Promise<PaymentTemplateResponse> {
+  get templates() {
+    return this.getTemplates();
+  }
+
+  async create(data: PaymentLinkCreateInput): Promise<PaymentLinkCreateOutput> {
+    try {
+      const endpoints = {
+        test: "/api/v1/payment-link",
+        live: "/api/v1/payment-link",
+      };
+      const response = await this.apiClient.post<PaymentLinkCreateOutput>(
+        endpoints[this.env],
+        data,
+        { params: { "Skip-Encryption": "true" } }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Error creating payment Link:",
+        (error as AxiosError).response?.data
+      );
+      throw error;
+    }
+  }
+
+  private async getTemplates(): Promise<PaymentTemplateGetOutput> {
     try {
       const endpoints = {
         test: "/api/v1/payment-templates",
@@ -36,29 +66,7 @@ class PaymentLink {
       throw error;
     }
   }
-
-  async createPaymentLink(
-    data: CreatePaymentLinkPayload
-  ): Promise<PaymentLinkResponse> {
-    try {
-      const endpoints = {
-        test: "/api/v1/payment-link",
-        live: "/api/v1/payment-link",
-      };
-      const response = await this.apiClient.post<PaymentLinkResponse>(
-        endpoints[this.env],
-        data,
-        { params: { "Skip-Encryption": "true" } }
-      );
-      return response.data;
-    } catch (error: any) {
-      console.error(
-        "Error creating payment Link:",
-        (error as AxiosError).response?.data
-      );
-      throw error;
-    }
-  }
 }
 
 export default PaymentLink;
+

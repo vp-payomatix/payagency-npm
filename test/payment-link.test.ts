@@ -5,12 +5,12 @@ describe("PayAgencyApi Payment Link Integration", () => {
     const payload = {
       payment_template_id: "PLI07435325281394735",
     };
-    const response = await api.createPaymentLink(payload);
+    const response = await api.PaymentLink.create(payload);
     console.log("Create Payment Link Response:", response);
   });
 
   it("should fetch payment link templates", async () => {
-    const response = await api.paymentLinkTemplates;
+    const response = await api.PaymentLink.templates;
     console.log("Payment Link Templates Response:", response);
   });
 });

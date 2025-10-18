@@ -1,3 +1,4 @@
+import { APMInput } from "@paneruvipin/payagency";
 import { api } from "./utility";
 
 describe("PayAgencyApi APM Integration", () => {
@@ -19,9 +20,9 @@ describe("PayAgencyApi APM Integration", () => {
       webhook_url: "https://pay.agency/webhook",
       // order_id: "12524AGSDF34DS9",
       terminal_id: "T12345",
-    };
+    } as APMInput;
 
-    const response = await api.apm(payload);
+    const response = await api.Payment.APM(payload);
     console.log("API Response:", response);
 
     expect(response).toHaveProperty("status");

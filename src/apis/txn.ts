@@ -11,7 +11,7 @@ class TXN {
     this.env = env;
   }
 
-  async getTransaction(
+  async transactions(
     params: TransactionParams
   ): Promise<TransactionsResponse> {
     try {
@@ -27,14 +27,13 @@ class TXN {
     } catch (error: any) {
       console.error(
         "Eroor in transction:",
-        (error as AxiosError)
-        // .response?.data
+        (error as AxiosError).response?.data
       );
       throw error;
     }
   }
 
-  async getPayoutTransaction(
+  async wallet_transaction(
     params: TransactionParams
   ): Promise<TransactionsResponse> {
     try {
@@ -50,8 +49,7 @@ class TXN {
     } catch (error: any) {
       console.error(
         "Eroor in transction:",
-        (error as AxiosError)
-        // .response?.data
+        (error as AxiosError).response?.data
       );
       throw error;
     }

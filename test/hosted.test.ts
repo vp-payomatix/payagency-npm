@@ -21,7 +21,7 @@ describe("PayAgencyApi Hosted Integration", () => {
       terminal_id: "T12345",
     };
 
-    const response = await api.hosted(payload);
+    const response = await api.Payment.hosted(payload);
     console.log("API Response:", response);
 
     expect(response).toHaveProperty("status");

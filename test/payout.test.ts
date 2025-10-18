@@ -24,7 +24,7 @@ describe("PayAgencyApi Payout Integration", () => {
       terminal_id: "T12345",
     };
 
-    const response = await api.payout(payload);
+    const response = await api.Payout.payout(payload);
     console.log("API Response:", response);
 
     expect(response).toHaveProperty("status");
@@ -32,7 +32,7 @@ describe("PayAgencyApi Payout Integration", () => {
   });
 
   it("should fetch wallets", async () => {
-    const response = await api.wallets;
+    const response = await api.Payout.wallets
     console.log("Wallets Response:", response);
 
     expect(response).toHaveProperty("data");
@@ -46,7 +46,7 @@ describe("PayAgencyApi Payout Integration", () => {
       card_number: "4111111111111111",
     };
 
-    const response = await api.payoutFee(payload);
+    const response = await api.Payout.esitimate_fee(payload);
     console.log("Estimate Payout Fee Response:", response);
 
     expect(response).toHaveProperty("data");

@@ -43,6 +43,7 @@ export interface OnRampOffRampBasePayload {
   ip_address: string;
   email: string;
   country: string;
+  crypto_network: string;
   redirect_url: string;
   webhook_url?: string;
   order_id?: string;
@@ -105,6 +106,8 @@ export interface CryptoPayinPayload {
   ip_address: string;
   phone_number: string;
   address: string;
+  country: string;
+  crypto_network: string;
   order_id?: string;
   redirect_url: string;
   webhook_url?: string;

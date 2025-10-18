@@ -26,42 +26,42 @@ class Crypto {
   }
 
   //crypto payment links
-  async onRampLink(
+  async on_ramp_link(
     data: Omit<OnrampLinkPayload, "transaction_type">
   ): Promise<PaymentLinkResponse> {
-    return await this.createPaymentLink({
+    return await this.payment_link({
       ...data,
       transaction_type: "ONRAMP",
     });
   }
 
-  async offRampLink(
+  async off_ramp_link(
     data: Omit<OfframpLinkPayload, "transaction_type">
   ): Promise<PaymentLinkResponse> {
-    return await this.createPaymentLink({
+    return await this.payment_link({
       ...data,
       transaction_type: "OFFRAMP",
     });
   }
 
-  async payinLink(
+  async payin_link(
     data: Omit<PayinLinkPayload, "transaction_type">
   ): Promise<PaymentLinkResponse> {
-    return await this.createPaymentLink({ ...data, transaction_type: "PAYIN" });
+    return await this.payment_link({ ...data, transaction_type: "PAYIN" });
   }
 
   // crypto onramp offramp
 
-  async onRamp(
+  async on_ramp(
     data: Omit<OnRampPayload, "transaction_type">
   ): Promise<CryptoOnRampOffRampResponse> {
-    return await this.onRampOffRamp({ ...data, transaction_type: "ONRAMP" });
+    return await this.payment({ ...data, transaction_type: "ONRAMP" });
   }
 
-  async offRamp(
+  async off_ramp(
     data: Omit<OffRampPayload, "transaction_type">
   ): Promise<CryptoOnRampOffRampResponse> {
-    return await this.onRampOffRamp({ ...data, transaction_type: "OFFRAMP" });
+    return await this.payment({ ...data, transaction_type: "OFFRAMP" });
   }
 
   // payin
@@ -70,19 +70,21 @@ class Crypto {
   ): Promise<CryptoExchangeCurrenciesResponse> {
     try {
       const endpoints = {
-        test: "/api/v1/live/crypto/currencies",
+        test: "/api/v1/test/crypto/currencies",
         live: "/api/v1/live/crypto/currencies",
       };
       const response =
         await this.apiClient.post<CryptoExchangeCurrenciesResponse>(
           endpoints[this.env],
-          data
+          data,
+          {params:{ "Skip-Encryption": "true"}}
         );
       return response.data;
     } catch (error: any) {
       console.error(
         "Error on fetching crypto curriences:",
-        (error as AxiosError).response?.data
+        (error as AxiosError)
+        .response?.data
       );
       throw error;
     }
@@ -107,29 +109,32 @@ class Crypto {
       throw error;
     }
   }
-  private async createPaymentLink(
+   async payment_link(
     data: CryptoPaymentLinkPayload
   ): Promise<PaymentLinkResponse> {
     try {
       const endpoints = {
-        test: "/api/v1/live/crypto/payment-link",
-        live: "/api/v1/live/crypto/payment-link",
+        test: "/api/v1/crypto/payment-link",
+        live: "/api/v1/crypto/payment-link",
       };
+      console.log("Creating crypto payment link with data:", data);
       const response = await this.apiClient.post<PaymentLinkResponse>(
         endpoints[this.env],
-        data
+        data,
+        {params: { "Skip-Encryption": "true" }}
       );
       return response.data;
     } catch (error: any) {
       console.error(
         "Error creating crypto payment link:",
-        (error as AxiosError).response?.data
+        (error as AxiosError)
+        .response?.data
       );
       throw error;
     }
   }
 
-  private async onRampOffRamp(
+  private async payment(
     data: CryptoOnRampOffRampPayload
   ): Promise<CryptoOnRampOffRampResponse> {
     try {

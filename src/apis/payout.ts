@@ -19,7 +19,7 @@ class Payout {
     this.env = env;
   }
 
-  async createPayment(data: PayoutPayload): Promise<PayoutResponse> {
+  async payout(data: PayoutPayload): Promise<PayoutResponse> {
     try {
       const endpoints = {
         test: "/api/v1/test/payout",
@@ -39,7 +39,11 @@ class Payout {
     }
   }
 
-  async getWallets(): Promise<WalletsResponse> {
+  get wallets() {
+    return this.get_wallets();
+  }
+
+  async get_wallets(): Promise<WalletsResponse> {
     try {
       const endpoints = {
         test: "/api/v1/wallet",
@@ -63,7 +67,7 @@ class Payout {
     }
   }
 
-  async esitimatePayoutFee(
+  async esitimate_fee(
     payload: EstimatePayoutPayload
   ): Promise<EstimatePayoutResponse> {
     try {
@@ -88,7 +92,7 @@ class Payout {
     }
   }
 
-  async getPayoutStatus(reference_id: string): Promise<PayoutStatusResponse> {
+  async payout_status(reference_id: string): Promise<PayoutStatusResponse> {
     try {
       const endpoints = {
         test: `/api/v1/test/payout/${reference_id}/status`,

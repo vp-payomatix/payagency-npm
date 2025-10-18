@@ -26,7 +26,7 @@ describe("PayAgencyApi S2S Integration", () => {
       terminal_id: "T12345",
     };
 
-    const response = await api.s2s(payload);
+    const response = await api.Payment.S2S(payload);
     console.log("API Response:",  response);
 
     expect(response).toHaveProperty("status");

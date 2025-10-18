@@ -4,9 +4,8 @@ import { randomBytes, createCipheriv } from "crypto";
 
 export interface ApiClientOptions {
   encryptionKey: string;
-  authToken: string;
+  secretKey: string;
   baseUrl: string;
-  environment?: "test" | "live";
 }
 
 /**
@@ -31,12 +30,12 @@ export class ApiClient {
   private env: "test" | "live";
   constructor(options: ApiClientOptions) {
     this.encryptionKey = options.encryptionKey;
-    this.env = options.environment || "test";
+    this.env = options.secretKey.startsWith("PA_LIVE_") ? "live" : "test";
     this.axiosInstance = axios.create({
       baseURL: options.baseUrl,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${options.authToken}`,
+        Authorization: `Bearer ${options.secretKey}`,
       },
       timeout: 15000,
     });
@@ -69,4 +68,3 @@ export class ApiClient {
 }
 
 export type ApiClientInstance = ApiClient["instance"];
-

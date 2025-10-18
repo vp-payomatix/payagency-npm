@@ -6,7 +6,7 @@ describe("PayAgencyApi TXN Integration", () => {
       transaction_start_date: "2023-01-01",
       transaction_end_date: "2023-12-31",
     };
-    const response = await api.transactions(params);
+    const response = await api.TXN.transactions(params);
     console.log("Transactions Response:", response);
 
     expect(response).toHaveProperty("data");
@@ -18,7 +18,8 @@ describe("PayAgencyApi TXN Integration", () => {
       transaction_start_date: "2023-01-01",
       transaction_end_date: "2023-12-31",
     };
-    const response = await api.payoutTransactions(params);
+    console.log("Fetching Payout Transactions with params:", api, api.TXN);
+    const response = await api.TXN.wallet_transaction(params);
     console.log("Payout Transactions Response:", response);
     expect(response).toHaveProperty("data");
     expect(response).toHaveProperty("meta");
