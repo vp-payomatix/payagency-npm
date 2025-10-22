@@ -764,7 +764,6 @@ import PayAgencyApi, {
 - **Card expiry years**: Use full 4-digit format (e.g., "2027", not "27")
 - **Optional fields**: Fields marked as optional can be omitted from the payload
 
-```
 
 ## License
 
@@ -772,11 +771,13 @@ MIT License - see the LICENSE file for details.
 
 ## Support
 
-For support and documentation, please visit [PayAgency Documentation](https://docs.payagency.com) or contact support@payagency.com.
+For support and documentation, please visit [PayAgency Documentation](https://docs.pay.agency) or contact support@pay.agency
 
 ---
 
 **Version**: 1.0.0
+
 **Author**: PaneruVipin
+
 **Repository**: [vp-payomatix/payagency-npm](https://github.com/vp-payomatix/payagency-npm)
-```
+
