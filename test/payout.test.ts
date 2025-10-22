@@ -3,7 +3,7 @@ import { api } from "./utility";
 describe("PayAgencyApi Payout Integration", () => {
   it("should create a payout", async () => {
     const payload = {
-      wallet_id: "WAL7825818519632620",
+      wallet_id: "WAL1234567890",
       first_name: "James",
       last_name: "Dean",
       email: "james@gmail.com",
@@ -16,9 +16,9 @@ describe("PayAgencyApi Payout Integration", () => {
       phone_number: "7654233212",
       amount: 100,
       currency: "USD",
-      card_number: "4111111111111111",
-      card_expiry_month: "12",
-      card_expiry_year: "2027",
+      card_number: "4222222222222222",
+      card_expiry_month: "10",
+      card_expiry_year: "2030",
       webhook_url: "https://pay.agency/webhook",
       // order_id: "12524AGSDF34DS9",
       terminal_id: "T12345",
