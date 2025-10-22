@@ -1,31 +1,31 @@
 import { AxiosError } from "axios";
-import { ApiClientInstance } from "../lib/api-client";
-import {
-  EstimatePayoutPayload,
-  EstimatePayoutResponse,
-  PayoutPayload,
-  PayoutResponse,
-  PayoutStatusResponse,
-  WalletsResponse,
-} from "../types/payout";
+import { PayAgencyInstance } from "../lib/api-client";
 import { testEstimatePayoutResponse, testWallets } from "../lib/dummy-response";
+import {
+  EstimateFeeInput,
+  EstimateFeeOutput,
+  PayoutInput,
+  PayoutOutput,
+  PayoutStatusOutput,
+  WalletsOutput,
+} from "../types/librery";
 
 class Payout {
-  private apiClient: ApiClientInstance;
+  private apiClient: PayAgencyInstance;
   private env: "test" | "live";
 
-  constructor(apiClient: ApiClientInstance, env: "test" | "live" = "test") {
+  constructor(apiClient: PayAgencyInstance, env: "test" | "live" = "test") {
     this.apiClient = apiClient;
     this.env = env;
   }
 
-  async payout(data: PayoutPayload): Promise<PayoutResponse> {
+  async payout(data: PayoutInput): Promise<PayoutOutput> {
     try {
       const endpoints = {
         test: "/api/v1/test/payout",
         live: "/api/v1/live/payout",
       };
-      const response = await this.apiClient.post<PayoutResponse>(
+      const response = await this.apiClient.post<PayoutOutput>(
         endpoints[this.env],
         data
       );
@@ -43,7 +43,7 @@ class Payout {
     return this.get_wallets();
   }
 
-  async get_wallets(): Promise<WalletsResponse> {
+  async get_wallets(): Promise<WalletsOutput> {
     try {
       const endpoints = {
         test: "/api/v1/wallet",
@@ -54,7 +54,7 @@ class Payout {
           data: testWallets,
         };
       }
-      const response = await this.apiClient.get<WalletsResponse>(
+      const response = await this.apiClient.get<WalletsOutput>(
         endpoints[this.env]
       );
       return response.data;
@@ -67,9 +67,7 @@ class Payout {
     }
   }
 
-  async esitimate_fee(
-    payload: EstimatePayoutPayload
-  ): Promise<EstimatePayoutResponse> {
+  async esitimate_fee(payload: EstimateFeeInput): Promise<EstimateFeeOutput> {
     try {
       const endpoints = {
         test: "/api/v1/wallet/estimate-payout",
@@ -78,7 +76,7 @@ class Payout {
       if (this.env === "test") {
         return testEstimatePayoutResponse;
       }
-      const response = await this.apiClient.post<EstimatePayoutResponse>(
+      const response = await this.apiClient.post<EstimateFeeOutput>(
         endpoints[this.env],
         payload
       );
@@ -92,7 +90,7 @@ class Payout {
     }
   }
 
-  async payout_status(reference_id: string): Promise<PayoutStatusResponse> {
+  async payout_status(reference_id: string): Promise<PayoutStatusOutput> {
     try {
       const endpoints = {
         test: `/api/v1/test/payout/${reference_id}/status`,
@@ -103,7 +101,7 @@ class Payout {
     } catch (error: any) {
       console.error(
         "Error fetching wallet transaction status:",
-        error as AxiosError //.response?.data
+        (error as AxiosError).response?.data
       );
       throw error;
     }

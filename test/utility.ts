@@ -1,4 +1,4 @@
-import PayAgencyApi from "@paneruvipin/payagency";
+import PayAgencyApi from "@payagency/api";
 
 export const api = new PayAgencyApi({
   baseUrl: "https://api.pay.agency",

@@ -5,7 +5,7 @@ import { randomBytes, createCipheriv } from "crypto";
 export interface ApiClientOptions {
   encryptionKey: string;
   secretKey: string;
-  baseUrl: string;
+  baseUrl?: string;
 }
 
 /**
@@ -31,11 +31,15 @@ export class ApiClient {
   constructor(options: ApiClientOptions) {
     this.encryptionKey = options.encryptionKey;
     this.env = options.secretKey.startsWith("PA_LIVE_") ? "live" : "test";
+    const baseUrl = options.baseUrl
+      ? options.baseUrl.replace(/\/+$/, "") // Ensure no trailing slash
+      : "https://backend.pay.agency";
+
     this.axiosInstance = axios.create({
-      baseURL: options.baseUrl,
+      baseURL: baseUrl.startsWith("https://") ? baseUrl : `https://${baseUrl}`, // Ensure it starts with https
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${options.secretKey}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${options.secretKey}`,
       },
       timeout: 15000,
     });
@@ -67,4 +71,4 @@ export class ApiClient {
   }
 }
 
-export type ApiClientInstance = ApiClient["instance"];
+export type PayAgencyInstance = ApiClient["instance"];

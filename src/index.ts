@@ -1,31 +1,27 @@
 import {
   ApiClient,
-  ApiClientInstance,
+  PayAgencyInstance,
   ApiClientOptions,
 } from "./lib/api-client";
-import {
-  RefundPayload,
-} from "./types/payout";
 import Payout from "./apis/payout";
-import Status from "./apis/status";
 import Refund from "./apis/refund";
 import PaymentLink from "./apis/payment-link";
 import TXN from "./apis/txn";
 import Crypto from "./apis/crypto";
 import Payment from "./apis/payment";
+import { RefundInput } from "./types/librery";
 
 class PayAgencyApi {
   private client: ApiClient;
   private payoutInstance: Payout;
   private paymentInstance: Payment;
-  private statusInstance: Status;
   private refundInstance: Refund;
   private paymentLinkInstance: PaymentLink;
   private txnInstance: TXN;
   private cryptoInstance: Crypto;
   private createApi<T>(
     ApiClass: new (
-      instance: ApiClientInstance,
+      instance: PayAgencyInstance,
       environment?: ApiClient["environment"]
     ) => T
   ): T {
@@ -37,7 +33,6 @@ class PayAgencyApi {
     this.client = client;
     this.paymentInstance = this.createApi(Payment);
     this.payoutInstance = this.createApi(Payout);
-    this.statusInstance = this.createApi(Status);
     this.refundInstance = this.createApi(Refund);
     this.paymentLinkInstance = this.createApi(PaymentLink);
     this.txnInstance = this.createApi(TXN);
@@ -60,11 +55,7 @@ class PayAgencyApi {
     return this.txnInstance;
   }
 
-  async status(id: string) {
-    return this.statusInstance.status(id);
-  }
-
-  async refund(data: RefundPayload) {
+  async refund(data: RefundInput) {
     return this.refundInstance.create(data);
   }
 
@@ -75,5 +66,5 @@ class PayAgencyApi {
 
 export default PayAgencyApi;
 
-export type { ApiClientOptions, ApiClientInstance };
+export type { ApiClientOptions, PayAgencyInstance };
 export * from "./types/librery";

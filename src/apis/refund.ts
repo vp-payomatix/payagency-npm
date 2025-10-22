@@ -1,24 +1,23 @@
 import { AxiosError } from "axios";
-import { PaymentResponse } from "../types/s2s";
-import { ApiClientInstance } from "../lib/api-client";
-import { RefundPayload, RefundResponse } from "../types/payout";
+import { PayAgencyInstance } from "../lib/api-client";
+import { RefundInput, RefundOutput } from "../types/librery";
 
 class Refund {
-  private apiClient: ApiClientInstance;
+  private apiClient: PayAgencyInstance;
   private env: "test" | "live";
 
-  constructor(apiClient: ApiClientInstance, env: "test" | "live" = "test") {
+  constructor(apiClient: PayAgencyInstance, env: "test" | "live" = "test") {
     this.apiClient = apiClient;
     this.env = env;
   }
 
-  async create(data: RefundPayload): Promise<RefundResponse> {
+  async create(data: RefundInput): Promise<RefundOutput> {
     try {
       const endpoints = {
         test: `/api/v1/test/refund`,
         live: `/api/v1/live/refund`,
       };
-      const response = await this.apiClient.post<RefundResponse>(
+      const response = await this.apiClient.post<RefundOutput>(
         endpoints[this.env],
         data,
         { params: { "Skip-Encryption": "true" } }

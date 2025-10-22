@@ -1,8 +1,9 @@
+import { CryptoOnRampLinkInput } from "@payagency/api";
 import { api } from "./utility";
 
 describe("PayAgencyApi Crypto Integration", () => {
   it("should create an on-ramp link", async () => {
-    const payload = {
+    const payload:CryptoOnRampLinkInput = {
       fiat_amount: 100,
       fiat_currency: "GBP",
       crypto_currency: "BTC",

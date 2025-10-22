@@ -1,49 +1,17 @@
 {
-  "name": "@paneruvipin/payagency",
+  "name": "@payagency/api",
   "version": "1.0.0",
-  "description": "A TypeScript/JavaScript SDK for PayAgency payment processing API with comprehensive support for server-to-server payments, hosted payment pages, APM (Alternative Payment Methods), and payout operations.",
+  "description": "Reusable API client with TypeScript (CommonJS)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "link": "npm link && npm link @paneruvipin/payagency",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "link": "npm link && npm link @payagency/api",
+    "test": "jest"
   },
-  "keywords": [
-    "payment",
-    "payagency",
-    "payment-processing",
-    "credit-card",
-    "payout",
-    "hosted-payments",
-    "apm",
-    "typescript",
-    "javascript",
-    "sdk",
-    "api-client"
-  ],
-  "author": "vp-payomatix",
+  "author": "PaneruVipin",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vp-payomatix/payagency-npm.git"
-  },
-  "bugs": {
-    "url": "https://github.com/vp-payomatix/payagency-npm/issues"
-  },
-  "homepage": "https://github.com/vp-payomatix/payagency-npm#readme",
-  "files": [
-    "dist/**/*",
-    "README.md",
-    "CHANGELOG.md",
-    "LICENSE"
-  ],
-  "engines": {
-    "node": ">=16.0.0"
-  },
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",

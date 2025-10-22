@@ -1,9 +1,9 @@
-import { APMInput } from "@paneruvipin/payagency";
+import { APMInput } from "@payagency/api";
 import { api } from "./utility";
 
 describe("PayAgencyApi APM Integration", () => {
   it("should create a payment ", async () => {
-    const payload = {
+    const payload:APMInput = {
       first_name: "James",
       last_name: "Dean",
       email: "james@gmail.com",
@@ -20,7 +20,7 @@ describe("PayAgencyApi APM Integration", () => {
       webhook_url: "https://pay.agency/webhook",
       // order_id: "12524AGSDF34DS9",
       terminal_id: "T12345",
-    } as APMInput;
+    }
 
     const response = await api.Payment.APM(payload);
     console.log("API Response:", response);
@@ -31,7 +31,7 @@ describe("PayAgencyApi APM Integration", () => {
 
   it("should fetch payment status", async () => {
     const paymentId = "12524AGSDF34DS9";
-    const response = await api.status(paymentId);
+    const response = await api.TXN.status(paymentId);
     console.log("Payment Status Response:", response);
     expect(response).toHaveProperty("status");
     // expect(response.status).toBe("success");
@@ -49,7 +49,9 @@ describe("PayAgencyApi APM Integration", () => {
       expect(response).toHaveProperty("status");
       // expect(response.status).toBe("success");
     } catch (error) {
-      expect(JSON.stringify((error as any)?.response.data)).toContain("Transaction");
+      expect(JSON.stringify((error as any)?.response.data)).toContain(
+        "Transaction"
+      );
     }
   });
 });

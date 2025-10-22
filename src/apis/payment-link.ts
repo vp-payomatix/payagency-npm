@@ -1,21 +1,16 @@
 import { AxiosError } from "axios";
-import { ApiClientInstance } from "../lib/api-client";
-import {
-  CreatePaymentLinkPayload,
-  PaymentLinkResponse,
-  PaymentTemplateResponse,
-} from "../types/payment-link";
+import { PayAgencyInstance } from "../lib/api-client";
 import {
   PaymentLinkCreateInput,
   PaymentLinkCreateOutput,
-  PaymentTemplateGetOutput,
+  PaymentTemplatesOutput,
 } from "../types/librery";
 
 class PaymentLink {
-  private apiClient: ApiClientInstance;
+  private apiClient: PayAgencyInstance;
   private env: "test" | "live";
 
-  constructor(apiClient: ApiClientInstance, env: "test" | "live" = "test") {
+  constructor(apiClient: PayAgencyInstance, env: "test" | "live" = "test") {
     this.apiClient = apiClient;
     this.env = env;
   }
@@ -45,7 +40,7 @@ class PaymentLink {
     }
   }
 
-  private async getTemplates(): Promise<PaymentTemplateGetOutput> {
+  private async getTemplates(): Promise<PaymentTemplatesOutput> {
     try {
       const endpoints = {
         test: "/api/v1/payment-templates",
@@ -54,7 +49,7 @@ class PaymentLink {
       if (this.env === "test") {
         return { data: [] };
       }
-      const response = await this.apiClient.get<PaymentTemplateResponse>(
+      const response = await this.apiClient.get<PaymentTemplatesOutput>(
         endpoints[this.env]
       );
       return response.data;
@@ -69,4 +64,3 @@ class PaymentLink {
 }
 
 export default PaymentLink;
-

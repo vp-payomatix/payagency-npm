@@ -1,25 +1,23 @@
 import { AxiosError } from "axios";
-import { ApiClientInstance } from "../lib/api-client";
-import { TransactionParams, TransactionsResponse } from "../types/txn";
+import { PayAgencyInstance } from "../lib/api-client";
+import { PaymentStatusOutput, TransactionsInput, TransactionsOutput } from "../types/librery";
 
 class TXN {
-  private apiClient: ApiClientInstance;
+  private apiClient: PayAgencyInstance;
   private env: "test" | "live";
 
-  constructor(apiClient: ApiClientInstance, env: "test" | "live" = "test") {
+  constructor(apiClient: PayAgencyInstance, env: "test" | "live" = "test") {
     this.apiClient = apiClient;
     this.env = env;
   }
 
-  async transactions(
-    params: TransactionParams
-  ): Promise<TransactionsResponse> {
+  async transactions(params: TransactionsInput): Promise<TransactionsOutput> {
     try {
       const endpoints = {
         test: `/api/v1/test-transactions`,
         live: `/api/v1/live-transactions`,
       };
-      const response = await this.apiClient.get<TransactionsResponse>(
+      const response = await this.apiClient.get<TransactionsOutput>(
         endpoints[this.env],
         { params }
       );
@@ -34,14 +32,14 @@ class TXN {
   }
 
   async wallet_transaction(
-    params: TransactionParams
-  ): Promise<TransactionsResponse> {
+    params: TransactionsInput
+  ): Promise<TransactionsOutput> {
     try {
       const endpoints = {
         test: `/api/v1/test-wallet-transactions`,
         live: `/api/v1/live-wallet-transactions`,
       };
-      const response = await this.apiClient.get<TransactionsResponse>(
+      const response = await this.apiClient.get<TransactionsOutput>(
         endpoints[this.env],
         { params }
       );
@@ -51,6 +49,22 @@ class TXN {
         "Eroor in transction:",
         (error as AxiosError).response?.data
       );
+      throw error;
+    }
+  }
+
+  async status(id: string): Promise<PaymentStatusOutput> {
+    try {
+      const endpoints = {
+        test: `/api/test/status/${id}`,
+        live: `/api/live/status/${id}`,
+      };
+      const response = await this.apiClient.get<PaymentStatusOutput>(
+        endpoints[this.env]
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error("Error in status:", (error as AxiosError).response?.data);
       throw error;
     }
   }

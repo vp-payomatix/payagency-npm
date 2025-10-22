@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { ApiClientInstance } from "../lib/api-client";
+import { PayAgencyInstance } from "../lib/api-client";
 import {
   APMInput,
   APMOutput,
@@ -10,10 +10,10 @@ import {
 } from "../types/librery";
 
 class Payment {
-  private apiClient: ApiClientInstance;
+  private apiClient: PayAgencyInstance;
   private env: "test" | "live";
 
-  constructor(apiClient: ApiClientInstance, env: "test" | "live" = "test") {
+  constructor(apiClient: PayAgencyInstance, env: "test" | "live" = "test") {
     this.apiClient = apiClient;
     this.env = env;
   }
@@ -59,24 +59,24 @@ class Payment {
   }
 
   async APM(data: APMInput): Promise<APMOutput> {
-      try {
-        const endpoints = {
-          test: "/api/v1/test/apm",
-          live: "/api/v1/live/apm",
-        };
-        const response = await this.apiClient.post<APMOutput>(
-          endpoints[this.env],
-          data
-        );
-        return response.data;
-      } catch (error: any) {
-        console.error(
-          "Error creating payment:",
-          (error as AxiosError).response?.data
-        );
-        throw error;
-      }
+    try {
+      const endpoints = {
+        test: "/api/v1/test/apm",
+        live: "/api/v1/live/apm",
+      };
+      const response = await this.apiClient.post<APMOutput>(
+        endpoints[this.env],
+        data
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "Error creating payment:",
+        (error as AxiosError).response?.data
+      );
+      throw error;
     }
+  }
 }
 
 export default Payment;
