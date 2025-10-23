@@ -1,6 +1,6 @@
 {
   "name": "payagency-api-beta",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Reusable API client with TypeScript (CommonJS)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
