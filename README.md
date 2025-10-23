@@ -76,7 +76,7 @@ const payment = await payAgency.Payment.S2S({
 | Parameter       | Type   | Required | Description                                                       |
 | --------------- | ------ | -------- | ----------------------------------------------------------------- |
 | `encryptionKey` | string | Yes      | 32-character encryption key for payload encryption                |
-| `secretKey`     | string | Yes      | Your API secret key (PA*TEST* for test, PA*LIVE* for live)        |
+| `secretKey`     | string | Yes      | Your API secret key (PA_TEST for test, PA_LIVE for live)        |
 | `baseUrl`       | string | No       | PayAgency API base URL (defaults to `https://backend.pay.agency`) |
 
 ### Environment Detection
