@@ -71,7 +71,7 @@ const payment = await payAgency.Payment.S2S({
 
 ## Configuration
 
-### ApiClientOptions
+### PayAgencyClientOptions
 
 | Parameter       | Type   | Required | Description                                                       |
 | --------------- | ------ | -------- | ----------------------------------------------------------------- |
@@ -680,7 +680,7 @@ The SDK is written in TypeScript and provides comprehensive type definitions:
 
 ```typescript
 import PayAgencyApi, {
-  ApiClientOptions,
+  PayAgencyClientOptions,
   PayAgencyInstance,
   S2SInput,
   S2SOutput,
@@ -694,7 +694,7 @@ import PayAgencyApi, {
 } from "@payagency/api";
 
 // All interfaces and types are exported for your use
-const options: ApiClientOptions = {
+const options: PayAgencyClientOptions = {
   encryptionKey: "your-key",
   secretKey: "PA_TEST_key",
   // baseUrl is optional - will default to https://backend.pay.agency
@@ -710,7 +710,7 @@ The SDK exports comprehensive TypeScript interfaces for all operations. All exam
 ```typescript
 import PayAgencyApi, {
   // Core types
-  ApiClientOptions,
+  PayAgencyClientOptions,
   PayAgencyInstance,
 
   // Payment types
@@ -764,7 +764,6 @@ import PayAgencyApi, {
 - **Card expiry years**: Use full 4-digit format (e.g., "2027", not "27")
 - **Optional fields**: Fields marked as optional can be omitted from the payload
 
-
 ## License
 
 MIT License - see the LICENSE file for details.
@@ -779,5 +778,4 @@ For support and documentation, please visit [PayAgency Documentation](https://do
 
 **Author**: PaneruVipin
 
-**Repository**: [vp-payomatix/payagency-npm](https://github.com/vp-payomatix/payagency-npm)
-
+**Repository**: [payagency-npm](https://github.com/vp-payomatix/payagency-npm)
