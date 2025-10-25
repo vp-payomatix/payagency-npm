@@ -23,13 +23,13 @@ A comprehensive TypeScript SDK for PayAgency payment processing platform, suppor
 ## Installation
 
 ```bash
-npm install @payagency/api
+npm install payagency-api-beta
 ```
 
 ## Quick Start
 
 ```typescript
-import PayAgencyApi from "@payagency/api";
+import PayAgencyApi from "payagency-api-beta";
 
 // Initialize the SDK with minimal configuration
 const payAgency = new PayAgencyApi({
@@ -71,12 +71,12 @@ const payment = await payAgency.Payment.S2S({
 
 ## Configuration
 
-### ApiClientOptions
+### PayAgencyClientOptions
 
 | Parameter       | Type   | Required | Description                                                       |
 | --------------- | ------ | -------- | ----------------------------------------------------------------- |
 | `encryptionKey` | string | Yes      | 32-character encryption key for payload encryption                |
-| `secretKey`     | string | Yes      | Your API secret key (PA*TEST* for test, PA*LIVE* for live)        |
+| `secretKey`     | string | Yes      | Your API secret key (PA_TEST for test, PA_LIVE for live)          |
 | `baseUrl`       | string | No       | PayAgency API base URL (defaults to `https://backend.pay.agency`) |
 
 ### Environment Detection
@@ -350,7 +350,63 @@ interface PaymentTemplateResponse {
 
 Handle cryptocurrency transactions:
 
-#### OnRamp (Fiat to Crypto)
+#### Comprehensive Methods
+
+The Crypto module provides both individual convenience methods and comprehensive methods for full control:
+
+##### Full-Featured Payment Method
+
+```typescript
+// Full crypto payment method - handles both OnRamp and OffRamp based on transaction_type
+const cryptoPayment = await payAgency.Crypto.payment({
+  transaction_type: "ONRAMP", // or "OFFRAMP"
+  first_name: "Diana",
+  last_name: "Prince",
+  email: "diana@pay.agency",
+  phone_number: "0123456789",
+  fiat_amount: 200, // Required for ONRAMP, omit for OFFRAMP
+  // crypto_amount: "0.05", // Required for OFFRAMP, omit for ONRAMP
+  fiat_currency: "EUR",
+  crypto_currency: "BTC",
+  wallet_address: "1BoatSLRHtKNngkdXEeobR76b53LETtpyT",
+  ip_address: "127.0.0.1",
+  country: "GB",
+  crypto_network: "BITCOIN",
+  redirect_url: "https://pay.agency",
+  webhook_url: "https://pay.agency/webhook", // optional
+  order_id: "ORDER_123", // optional
+  terminal_id: "T12345", // optional
+});
+```
+
+##### Full-Featured Payment Link Method
+
+```typescript
+// Full crypto payment link method - handles OnRamp, OffRamp, and PayIn based on transaction_type
+const cryptoPaymentLink = await payAgency.Crypto.payment_link({
+  transaction_type: "ONRAMP", // or "OFFRAMP" or "PAYIN"
+  fiat_amount: 100, // Required for ONRAMP and PAYIN
+  // crypto_amount: "0.01", // Required for OFFRAMP
+  fiat_currency: "GBP",
+  crypto_currency: "BTC",
+  payment_template_id: "PLI07435325281394735",
+  order_id: "ORDER_123", // optional
+  terminal_id: "T12345", // optional
+  expiry_date: "2024-12-31", // optional
+});
+
+// Response format for payment links:
+interface CryptoPaymentLinkOutput {
+  message: string;
+  data: string; // The payment link URL
+}
+```
+
+#### Individual Convenience Methods
+
+For easier usage, individual methods are also available:
+
+##### OnRamp (Fiat to Crypto)
 
 ```typescript
 // Create OnRamp payment link
@@ -403,7 +459,7 @@ interface CryptoOnRampOffRampResponse {
 }
 ```
 
-#### OffRamp (Crypto to Fiat)
+##### OffRamp (Crypto to Fiat)
 
 ```typescript
 // Create OffRamp payment link
@@ -680,7 +736,7 @@ The SDK is written in TypeScript and provides comprehensive type definitions:
 
 ```typescript
 import PayAgencyApi, {
-  ApiClientOptions,
+  PayAgencyClientOptions,
   PayAgencyInstance,
   S2SInput,
   S2SOutput,
@@ -691,10 +747,10 @@ import PayAgencyApi, {
   CryptoPaymentOutput,
   RefundInput,
   RefundOutput,
-} from "@payagency/api";
+} from "payagency-api-beta";
 
 // All interfaces and types are exported for your use
-const options: ApiClientOptions = {
+const options: PayAgencyClientOptions = {
   encryptionKey: "your-key",
   secretKey: "PA_TEST_key",
   // baseUrl is optional - will default to https://backend.pay.agency
@@ -710,7 +766,7 @@ The SDK exports comprehensive TypeScript interfaces for all operations. All exam
 ```typescript
 import PayAgencyApi, {
   // Core types
-  ApiClientOptions,
+  PayAgencyClientOptions,
   PayAgencyInstance,
 
   // Payment types
@@ -735,14 +791,16 @@ import PayAgencyApi, {
   PaymentTemplatesOutput,
 
   // Crypto types
+  CryptoPaymentInput,
+  CryptoPaymentOutput,
+  CryptoPaymentLinkInput,
+  CryptoPaymentLinkOutput,
   CryptoOnRampInput,
   CryptoOffRampInput,
   CryptoPayinInput,
   CryptoPayinOutput,
   CryptoCurrenciesInput,
   CryptoCurrenciesOutput,
-  CryptoPaymentLinkInput,
-  CryptoPaymentLinkOutput,
 
   // Transaction types
   TransactionsInput,
@@ -751,7 +809,7 @@ import PayAgencyApi, {
   // Refund types
   RefundInput,
   RefundOutput,
-} from "@payagency/api";
+} from "payagency-api-beta";
 ```
 
 ### Important Notes
@@ -763,7 +821,6 @@ import PayAgencyApi, {
 - **Crypto networks**: Use uppercase format (e.g., "BITCOIN", "ETHEREUM")
 - **Card expiry years**: Use full 4-digit format (e.g., "2027", not "27")
 - **Optional fields**: Fields marked as optional can be omitted from the payload
-
 
 ## License
 
@@ -779,5 +836,4 @@ For support and documentation, please visit [PayAgency Documentation](https://do
 
 **Author**: PaneruVipin
 
-**Repository**: [vp-payomatix/payagency-npm](https://github.com/vp-payomatix/payagency-npm)
-
+**Repository**: [payagency-npm](https://github.com/vp-payomatix/payagency-npm)

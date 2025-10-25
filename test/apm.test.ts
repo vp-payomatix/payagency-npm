@@ -1,9 +1,9 @@
-import { APMInput } from "@payagency/api";
+import { APMInput } from "payagency-api-beta";
 import { api } from "./utility";
 
 describe("PayAgencyApi APM Integration", () => {
   it("should create a payment ", async () => {
-    const payload:APMInput = {
+    const payload: APMInput = {
       first_name: "James",
       last_name: "Dean",
       email: "james@gmail.com",
@@ -20,7 +20,7 @@ describe("PayAgencyApi APM Integration", () => {
       webhook_url: "https://pay.agency/webhook",
       // order_id: "12524AGSDF34DS9",
       terminal_id: "T12345",
-    }
+    };
 
     const response = await api.Payment.APM(payload);
     console.log("API Response:", response);

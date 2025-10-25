@@ -1,7 +1,7 @@
 import {
   ApiClient,
   PayAgencyInstance,
-  ApiClientOptions,
+  PayAgencyClientOptions,
 } from "./lib/api-client";
 import Payout from "./apis/payout";
 import Refund from "./apis/refund";
@@ -28,7 +28,7 @@ class PayAgencyApi {
     return new ApiClass(this.client.instance, this.client.environment);
   }
 
-  constructor(apiClientOptions: ApiClientOptions) {
+  constructor(apiClientOptions: PayAgencyClientOptions) {
     const client = new ApiClient(apiClientOptions);
     this.client = client;
     this.paymentInstance = this.createApi(Payment);
@@ -66,5 +66,5 @@ class PayAgencyApi {
 
 export default PayAgencyApi;
 
-export type { ApiClientOptions, PayAgencyInstance };
+export type { PayAgencyClientOptions, PayAgencyInstance };
 export * from "./types/librery";

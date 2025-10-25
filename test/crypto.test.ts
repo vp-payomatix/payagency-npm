@@ -1,14 +1,14 @@
-import { CryptoOnRampLinkInput } from "@payagency/api";
+import { CryptoOnRampLinkInput } from "payagency-api-beta";
 import { api } from "./utility";
 
 describe("PayAgencyApi Crypto Integration", () => {
   it("should create an on-ramp link", async () => {
-    const payload:CryptoOnRampLinkInput = {
+    const payload: CryptoOnRampLinkInput = {
       fiat_amount: 100,
       fiat_currency: "GBP",
       crypto_currency: "BTC",
       payment_template_id: "PLI07435325281394735",
-    } 
+    };
     const response = await api.Crypto.on_ramp_link(payload);
     console.log("On-Ramp Link Response:", response);
 
@@ -22,7 +22,7 @@ describe("PayAgencyApi Crypto Integration", () => {
       crypto_currency: "BTC",
       crypto_amount: "0.01",
       payment_template_id: "PLI07435325281394735",
-    }
+    };
     const response = await api.Crypto.off_ramp_link(payload);
     console.log("Off-Ramp Link Response:", response);
     expect(response).toHaveProperty("data");
@@ -35,14 +35,14 @@ describe("PayAgencyApi Crypto Integration", () => {
       fiat_currency: "USD",
       crypto_currency: "BTC",
       payment_template_id: "PLI07435325281394735",
-    }
+    };
     const response = await api.Crypto.payin_link(payload);
     console.log("Crypto Paying Link Response:", response);
     expect(response).toHaveProperty("data");
     // expect(response.status).toBe("success");
   });
 
-  it("should create a crypto onramp", async () => { 
+  it("should create a crypto onramp", async () => {
     const payload = {
       first_name: "Diana",
       last_name: "Prince",
@@ -56,15 +56,15 @@ describe("PayAgencyApi Crypto Integration", () => {
       country: "GB",
       redirect_url: "https://pay.agency",
       webhook_url: "https://pay.agency/webhook",
-      crypto_network: "BITCOIN"
+      crypto_network: "BITCOIN",
     };
     const response = await api.Crypto.on_ramp(payload);
     console.log("Crypto Onramp Response:", response);
     expect(response).toHaveProperty("data");
-    // expect(response.status).toBe("success"); 
-  })
+    // expect(response.status).toBe("success");
+  });
 
-  it("should create a crypto offramp", async () => { 
+  it("should create a crypto offramp", async () => {
     const payload = {
       first_name: "Ethan",
       last_name: "Hunt",
@@ -78,15 +78,15 @@ describe("PayAgencyApi Crypto Integration", () => {
       country: "GB",
       redirect_url: "https://pay.agency",
       webhook_url: "https://pay.agency/webhook",
-      crypto_network: "BITCOIN"
+      crypto_network: "BITCOIN",
     };
     const response = await api.Crypto.off_ramp(payload);
     console.log("Crypto Offramp Response:", response);
     expect(response).toHaveProperty("data");
-    // expect(response.status).toBe("success"); 
+    // expect(response.status).toBe("success");
   });
 
-  it("should fetch supported cryptocurrencies", async () => { 
+  it("should fetch supported cryptocurrencies", async () => {
     const params = {
       country: "GB",
       amount: 100,
@@ -94,10 +94,10 @@ describe("PayAgencyApi Crypto Integration", () => {
     const response = await api.Crypto.currencies(params);
     console.log("Supported Cryptocurrencies Response:", response);
     expect(response).toHaveProperty("data");
-    // expect(response.status).toBe("success"); 
-  })
+    // expect(response.status).toBe("success");
+  });
 
-  it("should create a crypto payin", async () => { 
+  it("should create a crypto payin", async () => {
     const payload = {
       first_name: "Fiona",
       last_name: "Gallagher",
@@ -116,6 +116,6 @@ describe("PayAgencyApi Crypto Integration", () => {
     const response = await api.Crypto.payin(payload);
     console.log("Crypto Payin Response:", response);
     expect(response).toHaveProperty("data");
-    // expect(response.status).toBe("success"); 
+    // expect(response.status).toBe("success");
   });
 });
