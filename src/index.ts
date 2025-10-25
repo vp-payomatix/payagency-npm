@@ -68,3 +68,8 @@ export default PayAgencyApi;
 
 export type { PayAgencyClientOptions, PayAgencyInstance };
 export * from "./types/librery";
+
+if (typeof module !== "undefined" && module.exports) {
+  (module.exports as any) = PayAgencyApi;
+  (module.exports as any).default = PayAgencyApi;
+}

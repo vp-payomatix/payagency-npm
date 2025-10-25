@@ -1,4 +1,5 @@
 import PayAgencyApi from "payagency-api-beta";
+// console.log("Using payagency-api-beta version 1.0.0", PayAgencyApi, typeof PayAgencyApi);
 
 export const api = new PayAgencyApi({
   baseUrl: "https://api.pay.agency",
