@@ -52,10 +52,10 @@ describe("PayAgencyApi Payout Integration", () => {
     expect(response).toHaveProperty("data");
     // expect(response.status).toBe("success");
   });
-  // it("should get payout status", async () => {
-  //   const response = await api.payoutStatus("PA1877208010353680");
-  //   console.log("Payout Status Response:", response);
+  it("should get payout status", async () => {
+    const response = await api.Payout.payout_status("PA1877208010353680");
+    console.log("Payout Status Response:", response);
 
-  //   expect(response).toHaveProperty("data");
-  // });
+    expect(response).toHaveProperty("data");
+  });
 });
