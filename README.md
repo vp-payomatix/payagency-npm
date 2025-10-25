@@ -29,7 +29,7 @@ npm install payagency-api-beta
 ## Quick Start
 
 ```typescript
-import PayAgencyApi from "payagency-api-beta";
+import { PayAgencyApi } from "payagency-api-beta";
 
 // Initialize the SDK with minimal configuration
 const payAgency = new PayAgencyApi({

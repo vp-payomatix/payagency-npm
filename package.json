@@ -8,8 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && npm run copy-types",
-    "copy-types": "copyfiles -u 1 src/index.cjs.d.ts dist",
+    "build": "tsc",
     "prepare": "npm run build",
     "link": "npm link && npm link payagency-api-beta",
     "test": "jest"
@@ -31,22 +30,5 @@
   },
   "dependencies": {
     "axios": "^1.12.2"
-  },
-  "exports": {
-    ".": {
-      "import": "./disti/index.js",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "index": [
-        "dist/index.d.ts"
-      ],
-      "index.cjs": [
-        "dist/index.cjs.d.ts"
-      ]
-    }
   }
 }

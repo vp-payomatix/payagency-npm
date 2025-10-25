@@ -64,8 +64,8 @@ class PayAgencyApi {
   }
 }
 
-export default PayAgencyApi;
-
+export { PayAgencyApi };
+export default { PayAgencyApi };
 export type { PayAgencyClientOptions, PayAgencyInstance };
 export * from "./types/librery";
 
