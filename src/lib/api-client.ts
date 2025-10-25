@@ -30,16 +30,16 @@ export class ApiClient {
   private env: "test" | "live";
   constructor(options: PayAgencyClientOptions) {
     this.encryptionKey = options.encryptionKey;
-    this.env = options.secretKey.startsWith("PA_LIVE_") ? "live" : "test";
-    const baseUrl = options.baseUrl
-      ? options.baseUrl.replace(/\/+$/, "") // Ensure no trailing slash
+    this.env = options?.secretKey?.startsWith("PA_LIVE_") ? "live" : "test";
+    const baseUrl = options?.baseUrl
+      ? options?.baseUrl?.replace(/\/+$/, "") // Ensure no trailing slash
       : "https://backend.pay.agency";
 
     this.axiosInstance = axios.create({
-      baseURL: baseUrl.startsWith("https://") ? baseUrl : `https://${baseUrl}`, // Ensure it starts with https
+      baseURL: baseUrl?.startsWith("https://") ? baseUrl : `https://${baseUrl}`, // Ensure it starts with https
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${options.secretKey}`,
+        Authorization: `Bearer ${options?.secretKey}`,
       },
       timeout: 15000,
     });
