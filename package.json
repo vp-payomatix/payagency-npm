@@ -2,14 +2,14 @@
   "name": "payagency-api-beta",
   "version": "1.0.10",
   "description": "Reusable API client with TypeScript (CommonJS)",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc --build tsconfig.esm.json tsconfig.cjs.json",
+    "build": "tsc && npm run copy-types",
+    "copy-types": "copyfiles -u 1 src/index.cjs.d.ts dist",
     "prepare": "npm run build",
     "link": "npm link && npm link payagency-api-beta",
     "test": "jest"
@@ -34,9 +34,19 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./disti/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index": [
+        "dist/index.d.ts"
+      ],
+      "index.cjs": [
+        "dist/index.cjs.d.ts"
+      ]
     }
   }
 }
