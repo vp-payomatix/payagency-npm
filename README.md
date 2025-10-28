@@ -42,7 +42,7 @@ const payAgency = new PayAgencyApi({
 const payAgency = new PayAgencyApi({
   encryptionKey: "89ca59fb3b49ada55851021df12cfbc5",
   secretKey: "PA_TEST_your-secret-key",
-  baseUrl: "https://api.pay.agency",
+  baseUrl: "https://CUSTOM_SUB_DOMAIN.pay.agency",
 });
 
 // Make a payment
