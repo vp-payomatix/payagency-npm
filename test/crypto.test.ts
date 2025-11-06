@@ -1,4 +1,4 @@
-import { CryptoOnRampLinkInput } from "payagency-api-beta";
+import { CryptoOnRampLinkInput } from "payagency-api";
 import { api } from "./utility";
 
 describe("PayAgencyApi Crypto Integration", () => {

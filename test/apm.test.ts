@@ -1,4 +1,4 @@
-import { APMInput } from "payagency-api-beta";
+import { APMInput } from "payagency-api";
 import { api } from "./utility";
 
 describe("PayAgencyApi APM Integration", () => {

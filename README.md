@@ -23,13 +23,13 @@ A comprehensive TypeScript SDK for PayAgency payment processing platform, suppor
 ## Installation
 
 ```bash
-npm install payagency-api-beta
+npm install payagency-api
 ```
 
 ## Quick Start
 
 ```typescript
-import { PayAgencyApi } from "payagency-api-beta";
+import { PayAgencyApi } from "payagency-api";
 
 // Initialize the SDK with minimal configuration
 const payAgency = new PayAgencyApi({
@@ -747,7 +747,7 @@ import PayAgencyApi, {
   CryptoPaymentOutput,
   RefundInput,
   RefundOutput,
-} from "payagency-api-beta";
+} from "payagency-api";
 
 // All interfaces and types are exported for your use
 const options: PayAgencyClientOptions = {
@@ -809,7 +809,7 @@ import PayAgencyApi, {
   // Refund types
   RefundInput,
   RefundOutput,
-} from "payagency-api-beta";
+} from "payagency-api";
 ```
 
 ### Important Notes
